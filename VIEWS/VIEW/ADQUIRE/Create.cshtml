@@ -1,0 +1,142 @@
+@model AgenciaViagens.Models.Adquire
+
+@{
+    ViewBag.Title = "Adquirir Viagem";
+    string vlrFinalOuPadrao = ViewBag.promocao != null ? "padrão" : "final";
+}
+
+<h2 class="text-primary text-center">@ViewBag.Title</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div>
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <hr />
+        <h4>Cliente</h4>
+        <dl class="dl-horizontal">
+            <dt>
+                Nome:
+            </dt>
+            <dd>
+                @ViewBag.cliente.nome
+            </dd>
+
+            <dt>
+                RG:
+            </dt>
+            <dd>
+                @ViewBag.cliente.rg
+            </dd>
+
+            <dt>
+                CPF:
+            </dt>
+            <dd>
+                @Convert.ToUInt64(ViewBag.cliente.cpf).ToString(@"000\.000\.000\-00")
+            </dd>
+
+            <dt>
+                Data de nascimento:
+            </dt>
+            <dd>
+                @ViewBag.cliente.dt_nasc.ToString("dd/MM/yyyy")
+            </dd>
+
+            <dt>
+                E-mail:
+            </dt>
+            <dd>
+                @ViewBag.cliente.email
+            </dd>
+        </dl>
+        @Html.HiddenFor(model => model.cliente, new { Value = @ViewBag.cliente.id_cli })
+
+        <hr />
+        <h4>Destino</h4>
+        <dl class="dl-horizontal">
+            <dt>
+                Cidade:
+            </dt>
+            <dd>
+                @ViewBag.destino.cidade
+            </dd>
+
+            <dt>
+                UF:
+            </dt>
+            <dd>
+                @ViewBag.destino.uf
+            </dd>
+
+            <dt>
+                Local de desembarque:
+            </dt>
+            <dd>
+                @ViewBag.destino.loc_desemb
+            </dd>
+        </dl>
+
+        <hr />
+        <h4>Viagem</h4>
+        <dl class="dl-horizontal">
+            <dt>
+                Partida:
+            </dt>
+            <dd>
+                @ViewBag.viagem.partida
+            </dd>
+
+            <dt>
+                Chegada:
+            </dt>
+            <dd>
+                @ViewBag.viagem.chegada
+            </dd>
+
+            <dt>
+                Valor @vlrFinalOuPadrao:
+            </dt>
+            <dd>
+                @String.Format("{0:C}", ViewBag.viagem.vlr_padrao)
+            </dd>
+        </dl>
+        @Html.HiddenFor(model => model.viagem, new { Value = ViewBag.viagem.id_viag })
+
+        @if (ViewBag.promocao != null)
+        {
+            <hr />
+            <h4>Promoção</h4>
+            <dl class="dl-horizontal">
+                <dt>
+                    Desconto:
+                </dt>
+                <dd>
+                    @String.Format("{0:P0}", ViewBag.promocao.desconto)
+                </dd>
+
+                <dt>
+                    Valor Final:
+                </dt>
+                <dd>
+                    @String.Format("{0:C}", ViewBag.viagem.vlr_padrao * (1 - ViewBag.promocao.desconto))
+                </dd>
+            </dl>
+            @Html.HiddenFor(model => model.promocao, new { Value = @ViewBag.promocao.id_promo })
+        }
+        <hr />
+
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.ActionLink("Cancelar", "Index", "Home", routeValues: null, htmlAttributes: new { @class = "btn btn-default" })
+            </dt>
+            <dd>
+                <input type="submit" value="Adquirir Viagem" class="btn btn-success" />
+            </dd>
+        </dl>
+    </div>
+}
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

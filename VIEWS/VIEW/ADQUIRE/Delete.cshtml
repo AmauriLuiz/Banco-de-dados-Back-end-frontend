@@ -1,0 +1,136 @@
+@model AgenciaViagens.Models.Adquire
+
+@{
+    ViewBag.Title = "Cancelar Viagem";
+    string vlrFinalOuPadrao = Model.promocao != null ? "padrão" : "final";
+}
+
+<h2 class="text-danger text-center">@ViewBag.Title</h2>
+
+<h3>Tem certeza que deseja cancelar esta viagem?</h3>
+<div>
+    <hr />
+    <h4>Cliente</h4>
+    <dl class="dl-horizontal">
+        <dt>
+            Nome:
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Cliente1.nome)
+        </dd>
+
+        <dt>
+            RG:
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Cliente1.rg)
+        </dd>
+
+        <dt>
+            CPF:
+        </dt>
+        <dd id="cpf">
+            @Html.DisplayFor(model => model.Cliente1.cpf)
+        </dd>
+
+        <dt>
+            Data de nascimento:
+        </dt>
+        <dd id="dtNasc">
+            @Html.DisplayFor(model => model.Cliente1.dt_nasc)
+        </dd>
+
+        <dt>
+            E-mail:
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Cliente1.email)
+        </dd>
+    </dl>
+
+    <hr />
+    <h4>Destino</h4>
+    <dl class="dl-horizontal">
+        <dt>
+            Cidade:
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Viagem1.Destino1.cidade)
+        </dd>
+
+        <dt>
+            UF:
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Viagem1.Destino1.uf)
+        </dd>
+
+        <dt>
+            Local de desembarque:
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Viagem1.Destino1.loc_desemb)
+        </dd>
+    </dl>
+
+    <hr />
+    <h4>Viagem</h4>
+    <dl class="dl-horizontal">
+        <dt>
+            Partida:
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Viagem1.partida)
+        </dd>
+
+        <dt>
+            Chegada:
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Viagem1.chegada)
+        </dd>
+
+        <dt>
+            Valor @vlrFinalOuPadrao:
+        </dt>
+        <dd>
+            @String.Format("{0:C}", Model.Viagem1.vlr_padrao)
+        </dd>
+    </dl>
+
+    @if (Model.promocao != null)
+    {
+        <hr />
+        <h4>Promoção</h4>
+        <dl class="dl-horizontal">
+            <dt>
+                Desconto:
+            </dt>
+            <dd>
+                @String.Format("{0:P0}", Model.Promocao1.desconto)
+            </dd>
+
+            <dt>
+                Valor Final:
+            </dt>
+            <dd>
+                @String.Format("{0:C}", Model.Viagem1.vlr_padrao * (1 - Model.Promocao1.desconto))
+            </dd>
+        </dl>
+    }
+    <hr />
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.ActionLink("Voltar", "Index", "Adquire", routeValues: null, htmlAttributes: new { @class = "btn btn-default" })
+            </dt>
+            <dd>
+                <input type="submit" value="Cancelar Viagem" class="btn btn-danger" />
+            </dd>
+        </dl>
+    }
+</div>

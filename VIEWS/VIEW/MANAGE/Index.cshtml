@@ -1,0 +1,74 @@
+@model AgenciaViagens.Models.IndexViewModel
+
+@{
+    ViewBag.Title = "Minha Conta";
+}
+
+<h2>@ViewBag.Title</h2>
+
+@if (ViewBag.MsgEdit)
+{ 
+    <p class="text-success">Dados atualizados com sucesso!</p>
+}
+
+<p class="text-success">@ViewBag.StatusMessage</p>
+<div>
+    <h4>Alterar as configurações da minha conta</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Nome:
+        </dt>
+        <dd>
+            @ViewBag.cliente.nome
+        </dd>
+
+        <dt>
+            RG:
+        </dt>
+        <dd>
+            @ViewBag.cliente.rg
+        </dd>
+
+        <dt>
+            CPF:
+        </dt>
+        <dd>
+            @Convert.ToUInt64(ViewBag.cliente.cpf).ToString(@"000\.000\.000\-00")
+        </dd>
+
+        <dt>
+            Data de nascimento:
+        </dt>
+        <dd>
+            @ViewBag.cliente.dt_nasc.ToString("dd/MM/yyyy")
+        </dd>
+
+        <dt>
+            E-mail:
+        </dt>
+        <dd>
+            @ViewBag.cliente.email
+        </dd>
+    </dl>
+
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>Senha:</dt>
+        <dd>
+            @if (Model.HasPassword)
+            {
+                @Html.ActionLink("Alterar minha senha", "ChangePassword")
+            }
+        </dd>
+    </dl>
+
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.ActionLink("Voltar", "Index", "Home", routeValues: null, htmlAttributes: new { @class = "btn btn-default" })
+        </dt>
+        <dd>
+            @Html.ActionLink("Editar", "Edit", "Manage", routeValues: null, htmlAttributes: new { @class = "btn btn-primary" })
+        </dd>
+    </dl>
+</div>

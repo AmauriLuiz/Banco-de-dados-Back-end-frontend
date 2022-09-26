@@ -1,0 +1,71 @@
+@model AgenciaViagens.Models.ClienteRegistro
+
+@{
+    ViewBag.Title = "Crie sua conta";
+}
+
+<h2>@ViewBag.Title</h2>
+
+@if(ViewBag.erro != null) 
+{ 
+    <p style="color:red;font-size:2em;">@ViewBag.erro</p>
+}
+
+@using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+    <h4>Vem ser nosso cliente...</h4>
+    <hr />
+    @Html.ValidationSummary("", new { @class = "text-danger" })
+    <div class="form-group">
+        <label class="col-md-2 control-label" for="nome">Nome:</label>
+        <div class="col-md-10" name="nome">
+            @Html.TextBoxFor(m => m.cliente.nome, new { @class = "form-control", @maxlength = "50" })
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-md-2 control-label" for="rg">RG:</label>
+        <div class="col-md-10" name="rg">
+            @Html.TextBoxFor(m => m.cliente.rg, new { @class = "form-control", @maxlength = "10" })
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-md-2 control-label" for="cpf">CPF:</label>
+        <div class="col-md-10" name="cpf">
+            @Html.TextBoxFor(m => m.cliente.cpf, new { @class = "form-control", id = "cpf" })
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-md-2 control-label" for="dtNasc">Data de nascimento:</label>
+        <div class="col-md-10" name="dtNasc">
+            @Html.TextBoxFor(m => m.cliente.dt_nasc, new { @class = "form-control", @type = "date" })
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-md-2 control-label" for="email">Digite seu e-mail:</label>
+        <div class="col-md-10" name="email">
+            @Html.TextBoxFor(m => m.registro.Email, new { @class = "form-control", @maxlength = "30" })
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-md-2 control-label" for="pass">Digite sua senha:</label>
+        <div class="col-md-10" name="pass">
+            @Html.PasswordFor(m => m.registro.Password, new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-md-2 control-label" for="confPass">Confirme sua senha:</label>
+        <div class="col-md-10" name="confPass">
+            @Html.PasswordFor(m => m.registro.ConfirmPassword, new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" class="btn btn-success" value="Criar conta" />
+        </div>
+    </div>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

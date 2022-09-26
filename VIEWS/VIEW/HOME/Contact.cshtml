@@ -1,0 +1,40 @@
+@{
+    ViewBag.Title = "Contato";
+}
+<h2>@ViewBag.Title</h2>
+<h3>@ViewBag.Message</h3>
+
+<h4 id="msgEnvio" style="display: none;" class="text-success">Agradecemos seu contato!</h4>
+
+@using (Html.BeginForm(null, null, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+    <div class="form-horizontal">
+        <h4>Preencha os campos abaixo:</h4>
+        <hr />
+
+        <div class="form-group">
+            <label class="col-md-2 control-label" for="assunto">Assunto:</label>
+            <div class="col-md-10">
+                @Html.TextBox("Assunto", null, new { @class = "form-control", name = "assunto", id = "assunto" } )
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-md-2 control-label" for="msg">Mensagem:</label>
+            <div class="col-md-10">
+                @Html.TextArea("Mensagem", null, new { @class = "form-control", name = "msg", id = "msg" } )
+            </div>
+        </div>
+
+        <hr />
+        <div class="form-group d-flex flex-row">
+            <div class="col-md-2 ajuste-botao">
+                @Html.ActionLink("Voltar", "Index", "Home", routeValues: null, htmlAttributes: new { @class = "btn btn-default" })
+            </div>
+            <div class="col-md-10">
+                <input type="button" value="Enviar" class="btn btn-success" onclick="{getElementById('assunto').value = '';getElementById('msg').value = '';getElementById('msgEnvio').style.display = 'block';}"/>
+            </div>
+        </div>
+
+    </div>
+}

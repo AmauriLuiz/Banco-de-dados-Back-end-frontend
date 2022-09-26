@@ -1,0 +1,54 @@
+--- Geração de Modelo fisico Sql ANSI 2022 - brModelo.
+--- sql ANSI 2022  - brModelo
+
+
+CREATE TABLE viagem 
+(codviagem INTEGER PRIMARY KEY
+destino VARCHAR(45),
+partida VARCHAR(45),
+chegada VARCHAR(45),
+valor padrao VARCHAR(45),
+
+)
+
+
+CREATE TABLE cliente 
+( codcliente INTEGER PRIMARY KEY, 
+nome VARCHAR(45), 
+rg VARCHAR(45) ,
+cpf VARCHAR(45),  
+data de nascimento VARCHAR(45), 
+e-mail VARCHAR(45), 
+
+)
+
+
+CREATE TABLE adquire 
+(codadquire INTEGER PRIMARY KEY
+cliente VARCHAR(45),
+viagem VARCHAR(45),
+promocao VARCHAR(45),
+
+)
+
+CREATE TABLE destino 
+( coddestino INTEGER PRIMARY KEY, 
+cidadel VARCHAR(45), 
+uf VARCHAR(45) ,
+local desmbarque VARCHAR(45),  
+ 
+
+)
+
+CREATE TABLE promocao 
+(codadpromocao INTEGER PRIMARY KEY
+destino VARCHAR(45),
+desconto VARCHAR(45),
+vencimento VARCHAR(45),
+
+
+
+
+
+
+

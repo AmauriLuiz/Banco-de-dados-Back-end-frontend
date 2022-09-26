@@ -1,0 +1,85 @@
+@model IEnumerable<AgenciaViagens.Models.Adquire>
+
+@{
+    ViewBag.Title = "Minhas Viagens";
+}
+
+<h2>@ViewBag.Title</h2>
+
+@if (ViewBag.MsgDelete)
+{
+    <p class="text-success">Viagem cancelada com sucesso!</p>
+}
+
+<div class="table-responsive">
+    <table class="table table-hover table-striped table-responsive text-center">
+        <thead class="bg-primary">
+            <tr>
+                <th>
+                    Destino
+                </th>
+                <th class="text-center">
+                    Partida
+                </th>
+                <th class="text-center">
+                    Chegada
+                </th>
+                <th class="text-center">
+                    Valor Padrão
+                </th>
+                <th class="text-center">
+                    Desconto
+                </th>
+                <th class="text-center">
+                    Valor Final
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td class="text-left">
+                        @Html.DisplayFor(modelItem => item.Viagem1.Destino1.cidade) - @Html.DisplayFor(modelItem => item.Viagem1.Destino1.uf)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Viagem1.partida)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Viagem1.chegada)
+                    </td>
+                    <td>
+                        @String.Format("{0:C}", item.Viagem1.vlr_padrao)
+                    </td>
+                    <td>
+                        @if (item.promocao != null)
+                        {
+                            @String.Format("{0:P0}", item.Promocao1.desconto)
+                        }
+                        else
+                        {
+                            @String.Format("-")
+                        }
+                    </td>
+                    <td>
+                        @if (item.promocao != null)
+                        {
+                            @String.Format("{0:C}", item.Viagem1.vlr_padrao * (1 - item.Promocao1.desconto))
+                        }
+                        else
+                        {
+                            @String.Format("{0:C}", item.Viagem1.vlr_padrao)
+                        }
+                    </td>
+                    <td>
+                        @Html.ActionLink("Detalhes", "Details", "Adquire", routeValues: new { id = item.id_adq }, htmlAttributes: new { @class = "btn btn-default" })
+                        @Html.ActionLink("Cancelar", "Delete", "Adquire", routeValues: new { id = item.id_adq }, htmlAttributes: new { @class = "btn btn-danger" })
+                    </td>
+                </tr>
+            }
+        </tbody>
+
+    </table>
+</div>

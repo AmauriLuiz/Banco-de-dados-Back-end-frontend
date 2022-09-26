@@ -1,0 +1,86 @@
+@model IEnumerable<AgenciaViagens.Models.Viagem>
+
+@{
+    ViewBag.Title = "Viagens Disponíves";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<div class="table-responsive">
+    <table class="table table-hover table-striped table-responsive text-center">
+        <thead class="bg-primary">
+            <tr>
+                <th>
+                    Destino
+                </th>
+                <th class="text-center">
+                    Partida
+                </th>
+                <th class="text-center">
+                    Chegada
+                </th>
+                <th class="text-center">
+                    Valor Padrão
+                </th>
+                <th class="text-center">
+                    Desconto
+                </th>
+                <th class="text-center">
+                    Valor Final
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td class="text-left">
+                        @Html.DisplayFor(modelItem => item.Destino1.cidade) - @Html.DisplayFor(modelItem => item.Destino1.uf)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.partida)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.chegada)
+                    </td>
+                    <td>
+                        @String.Format("{0:C}", item.vlr_padrao)
+                    </td>
+                    <td>
+                        @if (ViewBag.promocao != null)
+                        {
+                            @String.Format("{0:P0}", ViewBag.promocao.desconto)
+                        }
+                        else
+                        {
+                            @String.Format("-")
+                        }
+                    </td>
+                    <td>
+                        @if (ViewBag.promocao != null)
+                        {
+                            @String.Format("{0:C}", item.vlr_padrao * (1 - ViewBag.promocao.desconto))
+                        }
+                        else
+                        {
+                            @String.Format("{0:C}", item.vlr_padrao)
+                        }
+                    </td>
+                    <td>
+                        @if (ViewBag.promocao != null)
+                        {
+                            @Html.ActionLink("Selecionar", "Create", "Adquire", routeValues: new { id = item.id_viag, id2 = ViewBag.promocao.id_promo }, htmlAttributes: new { @class = "btn btn-default" })
+                        }
+                        else
+                        {
+                            @Html.ActionLink("Selecionar", "Create", "Adquire", routeValues: new { id = item.id_viag }, htmlAttributes: new { @class = "btn btn-default" })
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+
+    </table>
+</div>

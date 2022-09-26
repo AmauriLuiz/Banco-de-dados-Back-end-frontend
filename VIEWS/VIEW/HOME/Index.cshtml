@@ -1,0 +1,49 @@
+@{
+    ViewBag.Title = "Página Inicial";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <h1>BlueBird Viagens</h1>
+        <p class="lead">Viage com a gente ao redor do Mundo...</p>
+        <p>
+            @if (Request.IsAuthenticated)
+            {
+                @Html.ActionLink("Checar meus dados >>", "Index", "Manage", null, htmlAttributes: new { @class = "btn btn-primary btn-lg" })
+            }
+            else
+            {
+                @Html.ActionLink("Criar minha conta >>", "Register", "Account", null, htmlAttributes: new { @class = "btn btn-primary btn-lg" })
+            }
+        </p>
+    </div>
+    <br />
+    <br />
+    <div class="col-md-4">
+        <h2>Veja nossas promoções</h2>
+        <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus mollis odio magna, vel dictum massa ultricies vel. Ut eu condimentum orci. Etiam tincidunt justo sed mauris convallis mollis id et nunc. Nunc ullamcorper blandit arcu, in tempor nibh finibus vitae.
+        </p>
+        <p>
+            @Html.ActionLink("Saber mais >>", "Index", "Promocoes", null, htmlAttributes: new { @class = "btn btn-default" })
+        </p>
+    </div>
+    <div class="col-md-4">
+        <h2>Conheça nossos destinos</h2>
+        <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus mollis odio magna, vel dictum massa ultricies vel. Ut eu condimentum orci. Etiam tincidunt justo sed mauris convallis mollis id et nunc.
+        </p>
+        <p>
+            @Html.ActionLink("Saber mais >>", "Index", "Destinos", null, htmlAttributes: new { @class = "btn btn-default" })
+        </p>
+    </div>
+    <div class="col-md-4">
+        <h2>Dúvidas? Estamos a sua disposição</h2>
+        <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus mollis odio magna, vel dictum massa ultricies vel. Ut eu condimentum orci. Etiam tincidunt justo sed mauris convallis mollis id et nunc. Nunc ullamcorper blandit arcu, in tempor nibh finibus vitae.
+        </p>
+        <p>
+            @Html.ActionLink("Saber mais >>", "Contact", "Home", null, htmlAttributes: new { @class = "btn btn-default" })
+        </p>
+    </div>
+</div>

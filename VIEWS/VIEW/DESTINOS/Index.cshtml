@@ -1,0 +1,47 @@
+@model IEnumerable<AgenciaViagens.Models.Destino>
+
+@{
+    ViewBag.Title = "Destinos";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<div class="table-responsive">
+    <table class="table table-hover table-striped table-responsive text-center">
+        <thead class="bg-primary">
+            <tr>
+                <th>
+                    Cidade
+                </th>
+                <th class="text-center">
+                    UF
+                </th>
+                <th class="text-center">
+                    Local de desembarque
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td class="text-left">
+                        @Html.DisplayFor(modelItem => item.cidade)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.uf)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.loc_desemb)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Selecionar", "Index", "Viagens", routeValues: new { id = item.id_dest, id2 = ViewBag.promocao }, htmlAttributes: new { @class = "btn btn-default" })
+                    </td>
+                </tr>
+            }
+        </tbody>
+
+    </table>
+</div>
